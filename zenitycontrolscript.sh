@@ -13,7 +13,7 @@ fi
 while (zenity --question --text="Thump tambourine $thumps times?") do
     echo $thumps
     for i in $(seq 1 $thumps) ; do  #repeatedly trigger a drum thump
-        echo "drums:*," > $serialport   #send command string over serial connection
+        echo "percussion:*," > $serialport   #send command string over serial connection
         sleep 0.2                       #FIXME this shouldn't be necessary
     done
 done

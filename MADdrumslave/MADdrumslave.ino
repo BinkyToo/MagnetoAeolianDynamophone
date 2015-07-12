@@ -5,7 +5,7 @@
 
 int drumpin = 13;
 const int drumdelay = 45;
-const String address = "drums";
+const String address = "percussion";
 
 void setup() {
   pinMode(drumpin, OUTPUT);
