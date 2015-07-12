@@ -14,6 +14,10 @@ while (zenity --question --text="Thump tambourine $thumps times?") do
     echo $thumps
     for i in $(seq 1 $thumps) ; do  #repeatedly trigger a drum thump
         echo "percussion:*," > $serialport   #send command string over serial connection
+        if [ $? = 1 ] ; then
+            zenity --error --text "Could not send command to serial device.\nPlease ensure that you have selected the correct serial port\nand that it is not being used by another program."
+            exit 3
+        fi
         sleep 0.2                       #FIXME this shouldn't be necessary
     done
 done
