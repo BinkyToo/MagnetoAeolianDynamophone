@@ -14,7 +14,6 @@ void setup() {
 
 void loop() {
   if (Serial.available()){
-    delay(1);
     String addressstring = Serial.readStringUntil(':');
     String pitchstring = Serial.readStringUntil(',');
     String timestring = Serial.readStringUntil('\n');
