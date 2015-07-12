@@ -5,6 +5,7 @@
 
 int drumpin = 13;
 const int drumdelay = 45;
+const String address = "drums";
 
 void setup() {
   pinMode(drumpin, OUTPUT);
@@ -17,7 +18,7 @@ void loop() {
     String addressstring = Serial.readStringUntil(':');
     String pitchstring = Serial.readStringUntil(',');
     String timestring = Serial.readStringUntil('\n');
-    if (addressstring=="drums"){
+    if (addressstring==address){
      if (pitchstring=="*"){
       thumpdrum();
      }
