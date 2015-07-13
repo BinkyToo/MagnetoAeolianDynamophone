@@ -13,10 +13,13 @@ void setup() {
 }
 
 void loop() {
+  String addressstring = "";
+  String pitchstring = "";
+  String timestring = "";
   if (Serial.available()){
-    String addressstring = Serial.readStringUntil(':');
-    String pitchstring = Serial.readStringUntil(',');
-    String timestring = Serial.readStringUntil('\n');
+    addressstring = Serial.readStringUntil(':');
+    pitchstring = Serial.readStringUntil(',');
+    timestring = Serial.readStringUntil('\n');
     if (addressstring==address){
      if (pitchstring=="*"){
       thumpdrum();
