@@ -12,11 +12,10 @@ if test -z "$thumps" ; then     #Quit if the user pressed cancel
 fi
 while (zenity --question --text="Thump tambourine $thumps times?") do
     for i in $(seq 1 $thumps) ; do  #repeatedly trigger a drum thump
-        echo "percussion:*,\n" > $serialport   #send command string over serial connection
+        echo "percussion:*," > $serialport   #send command string over serial connection
         if [ $? = 1 ] ; then
             zenity --error --text "Could not send command to serial device.\nPlease ensure that you have selected the correct serial port\nand that it is not being used by another program."
             exit 3
         fi
-        sleep 3                       #FIXME this shouldn't be necessary
     done
 done

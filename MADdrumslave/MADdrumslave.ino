@@ -6,6 +6,9 @@
 int drumpin = 13;
 const int drumdelay = 45;
 const String address = "percussion";
+String addressstring = "";
+String pitchstring = "";
+String timestring = "";
 
 void setup() {
   pinMode(drumpin, OUTPUT);
@@ -16,14 +19,14 @@ void loop() {
   String addressstring = "";
   String pitchstring = "";
   String timestring = "";
-  if (Serial.available()){
+  if (Serial.available()) {
     addressstring = Serial.readStringUntil(':');
     pitchstring = Serial.readStringUntil(',');
     timestring = Serial.readStringUntil('\n');
-    if (addressstring==address){
-     if (pitchstring=="*"){
-      thumpdrum();
-     }
+    if (addressstring == address) {
+      if (pitchstring == "*") {
+        thumpdrum();
+      }
     }
   }
 }
@@ -34,4 +37,5 @@ void thumpdrum() {
   digitalWrite(drumpin, LOW);
   Serial.print("thumpped drum\n");
 }
+
 
