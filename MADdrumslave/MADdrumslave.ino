@@ -5,6 +5,7 @@
 
 int drumpin = 13;
 const int drumdelay = 45;
+const int drumrelaxdelay = 5;
 const String address = "percussion";
 String addressstring = "";
 String pitchstring = "";
@@ -35,7 +36,7 @@ void thumpdrum() {
   digitalWrite(drumpin, HIGH);
   delay(drumdelay);
   digitalWrite(drumpin, LOW);
-  Serial.print("thumpped drum\n");
+  delay(drumrelaxdelay);
 }
 
 
