@@ -4,7 +4,12 @@ M:6/8
 L:1/8
 Q:1/4=175
 K:G
+CxD DDC | DxB xxx | CDD DxD | CDE xxx |
+DxD CDE | DxD CDE | DxG CDDE ]
+
 CxC CDE | AxA Axx | GAG GxE | Gxx Exx |
 CxC CDE | AxA Axx | GAG G2E | Dxx Cxx |
 dxd dBG | Bxc dxx | cxc cBA | Bxx dxx |
-CxC CDE | AxA Axx | GAG GxE | Dxx Cxx ]
+CxC CDE | AxA Axx | GAG GxE | Dxx Cxx |
+CxD xxD | DCD Bxx | CDD DxD | CDE xxx |
+DxD CDE | DxD CDE | DxG CDDE ]
