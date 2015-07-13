@@ -11,7 +11,6 @@ if test -z "$thumps" ; then     #Quit if the user pressed cancel
     exit 2
 fi
 while (zenity --question --text="Thump tambourine $thumps times?") do
-    echo $thumps
     for i in $(seq 1 $thumps) ; do  #repeatedly trigger a drum thump
         echo "percussion:*," > $serialport   #send command string over serial connection
         if [ $? = 1 ] ; then
