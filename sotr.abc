@@ -3,6 +3,7 @@ M: 4/4
 L: 1/8
 Q:1/4=120
 T: Somewhere Over the Rainbow
+C: Harold Arlen
 K:C % 0 sharps
 %%MIDI program 73
    c4 c'4   | b2 ga b2 c'2 |   c4 a4    |     g8     |    A4 f4   | e2 cd e2 f2 | d2 Bc d2 e2 |  c4 x4   |
