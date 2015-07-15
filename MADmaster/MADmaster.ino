@@ -35,7 +35,6 @@ void setup() {
 
 
 void loop() {
-  
   switch(uistate) {
     case SPLASH:
     break;
@@ -65,11 +64,6 @@ void loop() {
     int playedsofar = 0;
   }
   tryuistatechange();
-  //x+=0.05;
-  //if (x>1){
-  //  x = 0;
-  //}
-  //delay(50);
 }
 
 void drawsplash(int vernum){      // Compose device splash screen
