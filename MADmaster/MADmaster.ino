@@ -35,6 +35,7 @@ void setup() {
 
 
 void loop() {
+  handlecommands();
   switch(uistate) {
     case SPLASH:
     break;
@@ -66,61 +67,6 @@ void loop() {
   tryuistatechange();
 }
 
-void drawsplash(int vernum){      // Compose device splash screen
-  String output = "\f";             // Form feed
-  output += "                    ";
-  output += "  Magneto-Aeolian   ";
-  output += "  Dynamophone v";
-  output += vernum;
-  Serial1.print(output);
-}
-
-void drawprogressbar(float progress){
-  String output = "";
-  for (int i=0; i<(progress*20); i++) {
-    output += "=";
-  }
-  for (int i=(progress*20); i<20; i++) {
-    //output += " ";
-  }
-  Serial1.write(0x02);
-  Serial1.write(61);
-  Serial1.print(output);
-}
-
-void lcdsetup(){
-  Serial1.begin(9600,SERIAL_8N2);
-  Serial1.write(0x13);             // Turn backlight on
-  Serial1.write(0x04);             // Turn cursor off
-  Serial1.print('\f');
-}
-
-void drawfiles(){
-  Serial1.print('\f');
-  for (int line = 0; line < 4; line++){
-    movelcdcursortoline(line);
-    if ((line+scrolloffset)==selectedfilenum){
-      Serial1.print("> ");
-    }
-    else{
-      Serial1.print("  ");
-    }
-    Serial1.println(fileindex[line+scrolloffset]);
-
-  }
-  movelcdcursortochar(77);
-  Serial1.print(selectedfilenum+1);
-  Serial1.print('/');
-  Serial1.print(numberoffiles);
-}
-
-void drawnowplaying(){
-  Serial1.print("\f    Now Playing:    ");
-  movelcdcursortoline(1);
-  Serial1.print("    ");
-  Serial1.print(selectedfile);
-}
-
 void scansdcard(){
   File root;
   root = SD.open("/");
@@ -146,6 +92,13 @@ void movelcdcursortochar(int place){
 void movelcdcursortoline(int line){
   Serial1.write(0x02);
   Serial1.write(1+(line*20));
+}
+
+void lcdsetup(){
+  Serial1.begin(9600,SERIAL_8N2);
+  Serial1.write(0x13);             // Turn backlight on
+  Serial1.write(0x04);             // Turn cursor off
+  Serial1.print('\f');
 }
 
 void tryuistatechange(){
