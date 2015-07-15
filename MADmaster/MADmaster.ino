@@ -35,30 +35,7 @@ void setup() {
 
 
 void loop() {
-  while (Serial.available()){
-    char command = Serial.read();
-    switch (command){
-      case '+':
-        if ((selectedfilenum+1) < numberoffiles){selectedfilenum++;}
-        if ((selectedfilenum-scrolloffset)>=4){ scrolloffset++; }
-        drawfiles();
-      break;
-      case '-':
-        if (selectedfilenum > 0){selectedfilenum--;}
-        if ((selectedfilenum-scrolloffset)<0){ scrolloffset--; }
-        drawfiles();
-      break;
-      case 'p':
-        uistate = PLAYING;
-        selectedfile = fileindex[selectedfilenum];
-        sequence = SD.open(selectedfile);
-      break;
-      case 'f':
-        sequence.close();
-        uistate = FILES;
-      break;
-    }
-  }
+  
   switch(uistate) {
     case SPLASH:
     break;
@@ -192,6 +169,33 @@ void tryuistatechange(){
     break;
     }
   olduistate = uistate;
+  }
+}
+
+void handlecommands(){
+  while (Serial.available()){
+    char command = Serial.read();
+    switch (command){
+      case '+':
+        if ((selectedfilenum+1) < numberoffiles){selectedfilenum++;}
+        if ((selectedfilenum-scrolloffset)>=4){ scrolloffset++; }
+        drawfiles();
+      break;
+      case '-':
+        if (selectedfilenum > 0){selectedfilenum--;}
+        if ((selectedfilenum-scrolloffset)<0){ scrolloffset--; }
+        drawfiles();
+      break;
+      case 'p':
+        uistate = PLAYING;
+        selectedfile = fileindex[selectedfilenum];
+        sequence = SD.open(selectedfile);
+      break;
+      case 'f':
+        sequence.close();
+        uistate = FILES;
+      break;
+    }
   }
 }
 
