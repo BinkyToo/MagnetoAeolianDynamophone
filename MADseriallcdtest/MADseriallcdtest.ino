@@ -1,5 +1,10 @@
 const int vernum = 0;
 float x=0;
+enum{
+  SPLASH,
+  FILES,
+};
+int uistate = SPLASH;
 
 void setup() {
   serialsetup();
@@ -28,6 +33,9 @@ void drawprogressbar(float progress){
   String output = "";
   for (int i=0; i<(progress*20); i++) {
     output += "=";
+  }
+  for (int i=(progress*20); i<20; i++) {
+    output += " ";
   }
   Serial1.write(0x02);
   Serial1.write(61);
