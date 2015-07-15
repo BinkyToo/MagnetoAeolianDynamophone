@@ -11,7 +11,7 @@ int selectedfilenum = 2;
 int numberoffiles = 0;
 int scrolloffset = 0;
 
-float x=0;
+float progress = 0;
 enum{ SPLASH, FILES, PLAYING};
 int uistate = SPLASH;
 int olduistate = SPLASH;
@@ -42,13 +42,13 @@ void loop() {
     case FILES:
     break;
     case PLAYING:
-      drawprogressbar(x);
+      drawprogressbar(progress);
     break;
   }
   if (sequence.available()) {
     //Serial.write(sequence.read());
+    playedsofar++;
     switch (sequence.read()){
-      playedsofar++;
       case '*':
         Serial2.print("percussion:*,\n");
         delay(100);
@@ -57,12 +57,12 @@ void loop() {
         delay(100);
       break;
     }
-    x = (playedsofar / (playedsofar+sequence.available()));
+    progress = ((float)playedsofar/(playedsofar+sequence.available()));
   }
   else{
     sequence.close();
     uistate = FILES;
-    int playedsofar = 0;
+    playedsofar = 0;
   }
   tryuistatechange();
 }
@@ -141,6 +141,9 @@ void handlecommands(){
       case 'f':
         sequence.close();
         uistate = FILES;
+      break;
+      case 'r':
+        scansdcard();
       break;
     }
   }
