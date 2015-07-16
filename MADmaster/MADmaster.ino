@@ -7,7 +7,7 @@ String fileindex[10] = {};
 String selectedfile = "notafile.abc";
 File sequence;
 int playedsofar = 0;
-int selectedfilenum = 2;
+int selectedfilenum = 0;
 int numberoffiles = 0;
 int scrolloffset = 0;
 
@@ -26,7 +26,6 @@ void setup() {
   
   lcdsetup();
   drawsplash(vernum);
-  SD.begin(4);
  
   scansdcard();  
   delay(1000);
@@ -68,8 +67,13 @@ void loop() {
 }
 
 void scansdcard(){
+  SD.begin(4);
   File root;
   root = SD.open("/");
+  numberoffiles = 0;
+  for(int i=0; i<10; i++){
+    fileindex[i] = "";
+  }
   int i = 0;
   while(i<10) {
      File entry =  root.openNextFile();
@@ -144,6 +148,7 @@ void handlecommands(){
       break;
       case 'r':
         scansdcard();
+        drawfiles();
       break;
     }
   }

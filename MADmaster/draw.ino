@@ -6,7 +6,7 @@ void drawnowplaying(){
 }
 
 void drawfiles(){
-  Serial1.print('\f');
+  //Serial1.write(0x0c);
   for (int line = 0; line < 4; line++){
     movelcdcursortoline(line);
     if ((line+scrolloffset)==selectedfilenum){
@@ -16,7 +16,7 @@ void drawfiles(){
       Serial1.print("  ");
     }
     Serial1.println(fileindex[line+scrolloffset]);
-
+    Serial.println(fileindex[line+scrolloffset]);
   }
   movelcdcursortochar(77);
   Serial1.print(selectedfilenum+1);
