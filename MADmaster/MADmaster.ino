@@ -45,7 +45,6 @@ void loop() {
     break;
   }
   if (sequence.available()) {
-    //Serial.write(sequence.read());
     playedsofar++;
     switch (sequence.read()){
       case '*':
