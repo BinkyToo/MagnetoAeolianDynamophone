@@ -6,22 +6,30 @@ void drawnowplaying(){
 }
 
 void drawfiles(){
-  //Serial1.write(0x0c);
-  for (int line = 0; line < 4; line++){
-    movelcdcursortoline(line);
-    if ((line+scrolloffset)==selectedfilenum){
-      Serial1.print("> ");
+  Serial1.write(0x0c);
+  if (numberoffiles > 0){
+    for (int line = 0; line < 4; line++){
+      movelcdcursortoline(line);
+      if ((line+scrolloffset)==selectedfilenum){
+        Serial1.print("> ");
+      }
+      else{
+        Serial1.print("  ");
+      }
+      Serial1.println(fileindex[line+scrolloffset]);
+      Serial.println(fileindex[line+scrolloffset]);
     }
-    else{
-      Serial1.print("  ");
-    }
-    Serial1.println(fileindex[line+scrolloffset]);
-    Serial.println(fileindex[line+scrolloffset]);
+    movelcdcursortochar(77);
+    Serial1.print(selectedfilenum+1);
+    Serial1.print('/');
+    Serial1.print(numberoffiles);
   }
-  movelcdcursortochar(77);
-  Serial1.print(selectedfilenum+1);
-  Serial1.print('/');
-  Serial1.print(numberoffiles);
+  else{
+    movelcdcursortochar(23);
+    Serial1.print("No files found");
+    movelcdcursortochar(40);
+    Serial1.print("Please check SD card");
+  }
 }
 
 
