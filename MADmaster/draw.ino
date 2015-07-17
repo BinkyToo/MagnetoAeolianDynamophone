@@ -1,4 +1,4 @@
-void drawnowplaying(){
+void drawnowplaying(){                        // Draws the static parts of a now-playing screen
   Serial1.print("\f    Now Playing:    ");
   movelcdcursortoline(1);
   Serial1.print("    ");
@@ -6,7 +6,7 @@ void drawnowplaying(){
 }
 
 void drawfiles(){
-  Serial1.write(0x0C);              // Clear display
+  Serial1.write(0x0C);                        // Clear display
   if (numberoffiles > 0){
     for (int line = 0; line < 4; line++){
       movelcdcursortoline(line);

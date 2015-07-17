@@ -3,7 +3,9 @@
 
 const int vernum = 0;
 
+String dummy[20] = {}
 String fileindex[10] = {};
+String alsoadummy[20] = {}
 String selectedfile = "notafile.abc";
 File sequence;
 int playedsofar = 0;
