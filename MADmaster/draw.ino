@@ -1,4 +1,3 @@
-
 void drawnowplaying(){
   Serial1.print("\f    Now Playing:    ");
   movelcdcursortoline(1);
@@ -7,7 +6,7 @@ void drawnowplaying(){
 }
 
 void drawfiles(){
-  Serial1.write(0x0c);
+  Serial1.write(0x0C);              // Clear display
   if (numberoffiles > 0){
     for (int line = 0; line < 4; line++){
       movelcdcursortoline(line);
@@ -18,7 +17,6 @@ void drawfiles(){
         Serial1.print("  ");
       }
       Serial1.println(fileindex[line+scrolloffset]);
-      Serial.println(fileindex[line+scrolloffset]);
     }
     movelcdcursortochar(77);
     Serial1.print(selectedfilenum+1);
@@ -26,7 +24,7 @@ void drawfiles(){
     Serial1.print(numberoffiles);
   }
   else{
-    drawerror(NOFILES);
+    uistate = ERR;
   }
 }
 
@@ -55,19 +53,22 @@ void drawsplash(int vernum){      // Compose device splash screen
 
 
 
-void drawerror(int error){
+void drawerror(){
+  Serial1.write(0x0c);              // Clear display
   switch(error){
     case NOFILES:
       movelcdcursortochar(23);
       Serial1.print("No files found");
       movelcdcursortochar(40);
       Serial1.print("Please check SD card");
+      Serial.print("No files?");
     break;
     default:
       movelcdcursortochar(2);
       Serial1.print("Whoops");
       movelcdcursortochar(41);
       Serial1.print("unclassified error");
+      Serial.print("???");
   }
 }
 

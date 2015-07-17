@@ -12,10 +12,11 @@ int numberoffiles = 0;
 int scrolloffset = 0;
 
 float progress = 0;
-enum{ SPLASH, FILES, PLAYING};
-enum {NOFILES};
+enum{ SPLASH, FILES, PLAYING, ERR};
+enum {NONE, NOFILES};
 int uistate = SPLASH;
 int olduistate = SPLASH;
+int error = NONE;
 
 
 void setup() {
@@ -35,7 +36,7 @@ void setup() {
 
 
 void loop() {
-  handlecommands();
+  handlecommand();
   switch(uistate) {
     case SPLASH:
     break;
@@ -43,6 +44,8 @@ void loop() {
     break;
     case PLAYING:
       drawprogressbar(progress);
+    break;
+    case ERR:
     break;
   }
   if (sequence.available()) {
@@ -61,7 +64,6 @@ void loop() {
   else{
     sequence.close();
     uistate = FILES;
-    playedsofar = 0;
   }
   tryuistatechange();
 }
@@ -74,16 +76,14 @@ void scansdcard(){
   for(int i=0; i<10; i++){
     fileindex[i] = "";
   }
-  int i = 0;
-  while(i<10) {
+  while(numberoffiles<10) {
      File entry =  root.openNextFile();
      if (! entry) {
        break;
      }
-     fileindex[i] = entry.name();
+     fileindex[numberoffiles] = entry.name();
      numberoffiles++;
      entry.close();
-     i++;
    }
    root.close();
 }
@@ -118,13 +118,16 @@ void tryuistatechange(){
     case PLAYING:
       drawnowplaying();
     break;
+    case ERR:
+      drawerror();
+    break;
     }
   olduistate = uistate;
   }
 }
 
-void handlecommands(){
-  while (Serial.available()){
+void handlecommand(){
+  if (Serial.available()){
     char command = Serial.read();
     switch (command){
       case '+':
@@ -140,12 +143,13 @@ void handlecommands(){
       case 'p':
         scansdcard();
         if (numberoffiles != 0) {
+          playedsofar = 0;
           uistate = PLAYING;
           selectedfile = fileindex[selectedfilenum];
           sequence = SD.open(selectedfile);
         }
         else{
-          drawerror(NOFILES);
+          uistate = ERR;
         }
       break;
       case 'f':
