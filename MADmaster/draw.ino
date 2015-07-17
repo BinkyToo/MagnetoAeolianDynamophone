@@ -1,3 +1,4 @@
+
 void drawnowplaying(){
   Serial1.print("\f    Now Playing:    ");
   movelcdcursortoline(1);
@@ -25,10 +26,7 @@ void drawfiles(){
     Serial1.print(numberoffiles);
   }
   else{
-    movelcdcursortochar(23);
-    Serial1.print("No files found");
-    movelcdcursortochar(40);
-    Serial1.print("Please check SD card");
+    drawerror(NOFILES);
   }
 }
 
@@ -53,5 +51,23 @@ void drawsplash(int vernum){      // Compose device splash screen
   output += "  Dynamophone v";
   output += vernum;
   Serial1.print(output);
+}
+
+
+
+void drawerror(int error){
+  switch(error){
+    case NOFILES:
+      movelcdcursortochar(23);
+      Serial1.print("No files found");
+      movelcdcursortochar(40);
+      Serial1.print("Please check SD card");
+    break;
+    default:
+      movelcdcursortochar(2);
+      Serial1.print("Whoops");
+      movelcdcursortochar(41);
+      Serial1.print("unclassified error");
+  }
 }
 

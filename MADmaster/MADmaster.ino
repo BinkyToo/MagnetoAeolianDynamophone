@@ -13,6 +13,7 @@ int scrolloffset = 0;
 
 float progress = 0;
 enum{ SPLASH, FILES, PLAYING};
+enum {NOFILES};
 int uistate = SPLASH;
 int olduistate = SPLASH;
 
@@ -137,9 +138,15 @@ void handlecommands(){
         drawfiles();
       break;
       case 'p':
-        uistate = PLAYING;
-        selectedfile = fileindex[selectedfilenum];
-        sequence = SD.open(selectedfile);
+        scansdcard();
+        if (numberoffiles != 0) {
+          uistate = PLAYING;
+          selectedfile = fileindex[selectedfilenum];
+          sequence = SD.open(selectedfile);
+        }
+        else{
+          drawerror(NOFILES);
+        }
       break;
       case 'f':
         sequence.close();
