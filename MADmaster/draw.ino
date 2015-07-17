@@ -1,4 +1,5 @@
 void drawnowplaying(){                        // Draws the static parts of a now-playing screen
+  Serial.println("Drawing now playing screen");
   Serial1.print("\f    Now Playing:    ");
   movelcdcursortoline(1);
   Serial1.print("    ");
@@ -6,6 +7,7 @@ void drawnowplaying(){                        // Draws the static parts of a now
 }
 
 void drawfiles(){
+  Serial.println("Drawing file list");
   Serial1.write(0x0C);                        // Clear display
   if (numberoffiles > 0){
     for (int line = 0; line < 4; line++){
@@ -31,6 +33,7 @@ void drawfiles(){
 
 
 void drawprogressbar(float progress){
+  Serial.println("Drawing track play progress bar");
   String output = "";
   for (int i=0; i<(progress*20); i++) {
     output += "=";
@@ -44,6 +47,7 @@ void drawprogressbar(float progress){
 }
 
 void drawsplash(int vernum){      // Compose device splash screen
+  Serial.println("Drawing splash screen");
   String output = "\f";             // Form feed
   output += "                    ";
   output += "  Magneto-Aeolian   ";
@@ -55,6 +59,7 @@ void drawsplash(int vernum){      // Compose device splash screen
 
 
 void drawerror(){
+  Serial.println("Drawing error message");
   Serial1.write(0x0c);              // Clear display
   switch(error){
     case NOFILES:
