@@ -71,7 +71,7 @@ void loop() {
 }
 
 void scansdcard(){
-  Serial.println("\nScanning SD card");
+  Serial.println("\nScanning SD card...");
   SD.begin(4);
   File root;
   root = SD.open("/");
@@ -85,7 +85,7 @@ void scansdcard(){
        break;
      }
      fileindex[numberoffiles] = entry.name();
-     Serial.println(fileindex[numberoffiles]);
+     Serial.println("\t" + fileindex[numberoffiles]);
      numberoffiles++;
      entry.close();
    }
