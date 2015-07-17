@@ -34,6 +34,7 @@ void setup() {
   scansdcard();  
   delay(1000);
   uistate = FILES;
+  Serial.println("Finished setup");
 }
 
 
@@ -141,32 +142,40 @@ void handlecommand(){
     char command = Serial.read();
     switch (command){
       case '+':
+        Serial.println("Moving cursor down by one line");
         if ((selectedfilenum+1) < numberoffiles){selectedfilenum++;}
         if ((selectedfilenum-scrolloffset)>=4){ scrolloffset++; }
         drawfiles();
       break;
       case '-':
+        Serial.println("Moving cursor up by one line");
         if (selectedfilenum > 0){selectedfilenum--;}
         if ((selectedfilenum-scrolloffset)<0){ scrolloffset--; }
         drawfiles();
       break;
       case 'p':
+      Serial.print("Attempting to begin playback of ");
+      Serial.println(fileindex[selectedfilenum]);
         scansdcard();
         if (numberoffiles != 0) {
+          Serial.println("File still exists; playing");
           playedsofar = 0;
           uistate = PLAYING;
           selectedfile = fileindex[selectedfilenum];
           sequence = SD.open(selectedfile);
         }
         else{
+          Serial.println("File seems to have disappeared! Not playing.");
           uistate = ERR;
         }
       break;
       case 'f':
+        Serial.println("Entering file browser by user's request");
         sequence.close();
         uistate = FILES;
       break;
       case 'r':
+        Serial.println("Rescanning SD card by user's request");
         scansdcard();
         drawfiles();
       break;
