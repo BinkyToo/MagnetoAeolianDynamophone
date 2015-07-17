@@ -75,6 +75,7 @@ void scansdcard(){
   SD.begin(4);
   File root;
   root = SD.open("/");
+  int oldnumberoffiles = numberoffiles;
   numberoffiles = 0;
   for(int i=0; i<10; i++){
     fileindex[i] = "";
@@ -91,6 +92,10 @@ void scansdcard(){
    }
    root.close();
    Serial.println("Done");
+   if (numberoffiles!=oldnumberoffiles){
+     Serial.println("Number of files on SD card has changed!");
+     Serial.print("\tWas "); Serial.print(oldnumberoffiles); Serial.print(", now "); Serial.println(numberoffiles);
+   }
 }
 
 void movelcdcursortochar(int place){
