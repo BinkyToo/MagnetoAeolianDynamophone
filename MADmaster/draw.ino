@@ -24,6 +24,7 @@ void drawfiles(){
     Serial1.print(numberoffiles);
   }
   else{
+    error = NOFILES;
     uistate = ERR;
   }
 }
