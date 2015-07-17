@@ -71,7 +71,7 @@ void loop() {
 }
 
 void scansdcard(){
-  Serial.println("\nScanning SD card...");
+  Serial.println("Scanning SD card...");
   SD.begin(4);
   File root;
   root = SD.open("/");
@@ -90,6 +90,7 @@ void scansdcard(){
      entry.close();
    }
    root.close();
+   Serial.println('\n');
 }
 
 void movelcdcursortochar(int place){
