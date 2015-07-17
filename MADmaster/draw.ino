@@ -33,7 +33,7 @@ void drawfiles(){
 
 
 void drawprogressbar(float progress){
-  Serial.println("Drawing track play progress bar");
+  //Serial.println("Drawing track play progress bar");
   String output = "";
   for (int i=0; i<(progress*20); i++) {
     output += "=";
