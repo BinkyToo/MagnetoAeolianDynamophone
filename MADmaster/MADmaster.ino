@@ -90,7 +90,7 @@ void scansdcard(){
      entry.close();
    }
    root.close();
-   Serial.println("Done\n");
+   Serial.println("Done");
 }
 
 void movelcdcursortochar(int place){
