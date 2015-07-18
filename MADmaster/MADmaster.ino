@@ -27,10 +27,9 @@ void setup() {
   
   lcdsetup();                         // Includes setup of serial to LCD
   drawsplash(vernum);
- 
+  uistate = FILES;                    // Should later draw the lift of files to browse
   scansdcard();  
   delay(1000);
-  uistate = FILES;                    // Should later draw the lift of files to browse
   Serial.println("\n---\nFinished setup");
 }
 
@@ -89,6 +88,11 @@ void scansdcard(){
      Serial.println("\t" + fileindex[numberoffiles]);
      numberoffiles++;
      entry.close();                       // Can't have too many files open at once
+   }
+   if (numberoffiles == 0){
+     Serial.println("\tDidn't find any files");
+     uistate = ERR;
+     error = NOFILES;
    }
    root.close();                          // Ditto for dirs
    Serial.println("Done");
