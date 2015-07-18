@@ -159,6 +159,7 @@ void handlecommand(){
           Serial.println("Card still present; playing");
           playedsofar = 0;
           uistate = PLAYING;
+          sequence.close();
           sequence = SD.open(selectedfile);
         }
         else{
