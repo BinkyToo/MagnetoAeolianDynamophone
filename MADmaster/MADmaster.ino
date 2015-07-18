@@ -44,27 +44,28 @@ void loop() {
     break;
     case PLAYING:
       drawprogressbar(progress);
+      if (sequence.available()) {
+        playedsofar++;
+        switch (sequence.read()){
+          case '*':
+            Serial2.print("percussion:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
+            delay(100);
+          break;
+          case '_':                             // Play nothing, but still take up a note's worth of time
+            delay(100);
+          break;
+        }
+        progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
+      }
+      else{
+        sequence.close();                       // Have got to end of file now
+        uistate = FILES;                        // Go back to file browser
+      }
     break;
     case ERR:
     break;
   }
-  if (sequence.available()) {
-    playedsofar++;
-    switch (sequence.read()){
-      case '*':
-        Serial2.print("percussion:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
-        delay(100);
-      break;
-      case '_':                             // Play nothing, but still take up a note's worth of time
-        delay(100);
-      break;
-    }
-    progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
-  }
-  else{
-    sequence.close();                       // Have got to end of file now
-    uistate = FILES;                        // Go back to file browser
-  }
+  
   tryuistatechange();                       // Has the UI changed state? If so draw the new screen, once only
 }
 
