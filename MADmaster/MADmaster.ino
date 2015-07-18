@@ -22,10 +22,7 @@ int error = NONE;
 
 
 void setup() {
-  //begindebug
   Serial.begin(9600);
-  //enddebug
-
   Serial2.begin(9600);
   
   lcdsetup();
@@ -154,14 +151,14 @@ void handlecommand(){
         drawfiles();
       break;
       case 'p':
-      Serial.print("Attempting to begin playback of ");
-      Serial.println(fileindex[selectedfilenum]);
+        Serial.print("Attempting to begin playback of ");
+        selectedfile = fileindex[selectedfilenum];
+        Serial.println(selectedfile);
         scansdcard();
         if (numberoffiles != 0) {
-          Serial.println("File still exists; playing");
+          Serial.println("Card still present; playing");
           playedsofar = 0;
           uistate = PLAYING;
-          selectedfile = fileindex[selectedfilenum];
           sequence = SD.open(selectedfile);
         }
         else{
