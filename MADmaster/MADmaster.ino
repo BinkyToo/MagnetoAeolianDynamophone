@@ -115,7 +115,7 @@ void lcdsetup(){
 
 void tryuistatechange(){
   if (uistate != olduistate){
-    Serial1.print('\f');
+    Serial1.print('\f');          // FIXME should this form-feed really be here?
     switch(uistate) {
     case SPLASH:
       drawsplash(vernum);
