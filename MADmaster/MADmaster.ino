@@ -73,6 +73,7 @@ void scansdcard(){
   SD.begin(4);
   File root;                                // Actually a directory
   root = SD.open("/");
+  root.rewindDirectory();
   int oldnumberoffiles = numberoffiles;
   numberoffiles = 0;
   for(int i=0; i<10; i++){
