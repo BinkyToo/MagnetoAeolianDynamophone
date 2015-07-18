@@ -22,22 +22,22 @@ int error = NONE;
 
 
 void setup() {
-  Serial.begin(9600);
-  Serial2.begin(9600);
+  Serial.begin(9600);                 // Serial over USB for debug
+  Serial2.begin(9600);                // Serial to  slave arduino(s)
   
-  lcdsetup();
+  lcdsetup();                         // Includes setup of serial to LCD
   drawsplash(vernum);
  
   scansdcard();  
   delay(1000);
-  uistate = FILES;
+  uistate = FILES;                    // Should later draw the lift of files to browse
   Serial.println("\n---\nFinished setup");
 }
 
 
 void loop() {
-  handlecommand();
-  switch(uistate) {
+  handlecommand();                    // Check if there is a command from the default serial connection, and process it
+  switch(uistate) {                   // These are displayed material which changes spontaneously (e.g. by time)
     case SPLASH:
     break;
     case FILES:
@@ -52,26 +52,26 @@ void loop() {
     playedsofar++;
     switch (sequence.read()){
       case '*':
-        Serial2.print("percussion:*,\n");
+        Serial2.print("percussion:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
         delay(100);
       break;
-      case '_':
+      case '_':                             // Play nothing, but still take up a note's worth of time
         delay(100);
       break;
     }
-    progress = ((float)playedsofar/(playedsofar+sequence.available()));
+    progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
   }
   else{
-    sequence.close();
-    uistate = FILES;
+    sequence.close();                       // Have got to end of file now
+    uistate = FILES;                        // Go back to file browser
   }
-  tryuistatechange();
+  tryuistatechange();                       // Has the UI changed state? If so draw the new screen, once only
 }
 
 void scansdcard(){
   Serial.println("Scanning SD card...");
   SD.begin(4);
-  File root;
+  File root;                                // Actually a directory
   root = SD.open("/");
   int oldnumberoffiles = numberoffiles;
   numberoffiles = 0;
@@ -81,14 +81,14 @@ void scansdcard(){
   while(numberoffiles<10) {
      File entry =  root.openNextFile();
      if (! entry) {
-       break;
+       break;                              // Leave the while loop, no more files
      }
-     fileindex[numberoffiles] = entry.name();
+     fileindex[numberoffiles] = entry.name(); // Add file name to an array of all the files on the SD card
      Serial.println("\t" + fileindex[numberoffiles]);
      numberoffiles++;
-     entry.close();
+     entry.close();                       // Can't have too many files open at once
    }
-   root.close();
+   root.close();                          // Ditto for dirs
    Serial.println("Done");
    if (numberoffiles!=oldnumberoffiles){
      Serial.println("Number of files on SD card has changed!");
@@ -97,20 +97,20 @@ void scansdcard(){
 }
 
 void movelcdcursortochar(int place){
-  Serial1.write(0x02);
-  Serial1.write(1+place);
+  Serial1.write(0x02);                    // Next byte is a screen position
+  Serial1.write(1+place);                 // FIXME are we using 1 or 0 indexing?
 }
 
-void movelcdcursortoline(int line){
+void movelcdcursortoline(int line){       // Pretty much like above
   Serial1.write(0x02);
   Serial1.write(1+(line*20));
 }
 
 void lcdsetup(){
-  Serial1.begin(9600,SERIAL_8N2);
+  Serial1.begin(9600,SERIAL_8N2);  // two stop bits (not default)
   Serial1.write(0x13);             // Turn backlight on
   Serial1.write(0x04);             // Turn cursor off
-  Serial1.print('\f');
+  Serial1.print('\f');             // Form feed (return to top left?)
 }
 
 void tryuistatechange(){
