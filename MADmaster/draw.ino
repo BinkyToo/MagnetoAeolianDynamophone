@@ -8,8 +8,8 @@ void drawnowplaying(){                        // Draws the static parts of a now
 
 void drawfiles(){
   Serial.println("Drawing file list");
-  Serial1.write(0x0C);                        // Clear display
   if (numberoffiles > 0){
+    Serial1.write(0x0C);                        // Clear display
     for (int line = 0; line < 4; line++){
       movelcdcursortoline(line);
       if ((line+scrolloffset)==selectedfilenum){
