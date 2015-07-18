@@ -67,14 +67,14 @@ void drawerror(){
       Serial1.print("No files found");
       movelcdcursortochar(40);
       Serial1.print("Please check SD card");
-      Serial.println("No files?");
+      Serial.println("\tNo files?");
     break;
     default:
-      movelcdcursortochar(2);
+      movelcdcursortochar(27);
       Serial1.print("Whoops");
       movelcdcursortochar(41);
       Serial1.print("unclassified error");
-      Serial.print("???");
+      Serial.print("\t???");
   }
 }
 
