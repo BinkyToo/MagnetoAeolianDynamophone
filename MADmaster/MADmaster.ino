@@ -167,6 +167,7 @@ void handlecommand(){
         else{
           Serial.println("File seems to have disappeared! Not playing.");
           uistate = ERR;
+          error = NOFILES;
         }
       break;
       case 'f':
