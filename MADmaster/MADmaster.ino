@@ -31,7 +31,7 @@ void setup() {
   scansdcard();  
   delay(1000);
   uistate = FILES;
-  Serial.println("Finished setup");
+  Serial.println("\n---\nFinished setup");
 }
 
 
