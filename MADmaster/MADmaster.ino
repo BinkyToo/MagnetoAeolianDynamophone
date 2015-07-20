@@ -56,26 +56,20 @@ void loop() {
           break;
         }
         char ch=nextchar;
-        if (ch >= 'C' and ch <= 'G') {
+        if (ch >= 'A' and ch <= 'G') {
           Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
         }
-        if (ch >= 'c' and ch <= 'g') {
-          Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
-        }
-        if ( ch >= 'A' and ch <= 'B') {
-          Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
-        }
-        if (ch >= 'a' and ch < 'b') {
+        if (ch >= 'a' and ch <= 'g') {
           Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
         }
         if (ch >= '0' and ch <='9'){
           Serial2.print(ch); Serial2.print("\n");
-          delay(165*(ch-48));
+          delay(100*(ch-48));
         }
         //else{
         //  Serial2.print("1\n");
         //}
-        delay(100);
+        delay(20);
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
