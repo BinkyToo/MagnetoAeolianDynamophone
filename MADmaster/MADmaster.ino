@@ -75,7 +75,7 @@ void loop() {
         //else{
         //  Serial2.print("1\n");
         //}
-        delay(75);
+        delay(100);
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
