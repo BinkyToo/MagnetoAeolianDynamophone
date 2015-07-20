@@ -40,7 +40,7 @@ void loop() {
         Serial.print("Setting duration to "); Serial.println(duration);
       }
       if (pitchstring.length() == 1) {
-        Serial.println("seems to have a valid single-character pitch string");
+        Serial.println("Seems to have a valid single-character pitch string");
         char ch = pitchstring.charAt(1);
         if (ch >= 'C' and ch <= 'G') {
           playNote(lowTonedurations[ch - 'C']);
@@ -76,7 +76,7 @@ void loop() {
 }
 
   void playNote(long timePeriod) {
-    Serial.print("playing note with time period "); Serial.println(timePeriod);
+    Serial.print("Playing note with time period "); Serial.println(timePeriod);
     cycles = duration / timePeriod;
     cycles = cycles / 4;
     timePeriod = timePeriod - 20;    //it takes 20 us to do the lines.
