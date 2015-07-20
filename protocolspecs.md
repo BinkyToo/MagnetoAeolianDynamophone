@@ -1,4 +1,4 @@
-Specifications- for broadcast commands to note-playing slave devices
+Specifications for broadcast commands to note-playing slave devices
 ===
 
 Electrical
@@ -25,5 +25,5 @@ Command packet structure
  
 Examples
 ---
-stepper:B,3
-percussion:*,
+* stepper:B,3
+* percussion:*,
