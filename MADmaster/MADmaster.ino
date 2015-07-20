@@ -27,7 +27,7 @@ void setup() {
   
   lcdsetup();                         // Includes setup of serial to LCD
   drawsplash(vernum);
-  uistate = FILES;                    // Should later draw the lift of files to browse
+  uistate = FILES;                    // Should later draw the list of files to browse
   scansdcard();  
   delay(1000);
   Serial.println("\n---\nFinished setup");
@@ -39,7 +39,7 @@ void loop() {
   switch(uistate) {                   // These are displayed material which changes spontaneously (e.g. by time)
     case SPLASH:
     break;
-    case FILES:
+    case FILES:                       // Nothing here; file browser is kinda static
     break;
     case PLAYING:
       drawprogressbar(progress);
@@ -65,10 +65,7 @@ void loop() {
           Serial2.print(ch); Serial2.print("\n");
           delay(100*(ch-48));
         }
-        //else{
-        //  Serial2.print("1\n");
-        //}
-        delay(80);
+        delay(80);                // Wait for end device to process things? not sure. Ungly. FIXME
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
@@ -76,7 +73,7 @@ void loop() {
         uistate = FILES;                        // Go back to file browser
       }
     break;
-    case ERR:
+    case ERR:                               // Nothing here - errors are static
     break;
   }
   
