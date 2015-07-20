@@ -35,10 +35,7 @@ void loop() {
     if (addressstring == address) {
       Serial.println("\tData is addressed to this module");
       if (timestring.length() == 1) {         // FIXME should be able to handle multi-digit numbers
-        int foo = 1*timestring.charAt(0)-48;  // debug stuff to be removed
-        Serial.println(foo);
-        Serial.println(bpm);
-        duration = (30000000 / bpm) * (foo);  // How long the note is played for
+        duration = (30000000 / bpm) * (timestring.charAt(0)-48);  // How long the note is played for
         Serial.print("Setting duration to "); Serial.println(duration);
       }
       if (pitchstring.length() == 1) {
