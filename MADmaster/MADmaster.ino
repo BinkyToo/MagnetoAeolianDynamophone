@@ -45,8 +45,8 @@ void loop() {
       drawprogressbar(progress);
       if (sequence.available()) {
         playedsofar++;
-        char nextchar = sequence.read();
-        switch (nextchar){
+        char ch = sequence.read();
+        switch (ch){
           case '*':
             Serial2.print("percussion:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
             delay(100);
@@ -55,7 +55,6 @@ void loop() {
             delay(100);
           break;
         }
-        char ch=nextchar;
         if (ch >= 'A' and ch <= 'G') {
           Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
         }
@@ -69,7 +68,7 @@ void loop() {
         //else{
         //  Serial2.print("1\n");
         //}
-        delay(20);
+        delay(80);
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
