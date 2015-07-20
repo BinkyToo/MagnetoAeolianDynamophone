@@ -36,12 +36,13 @@ void loop() {
     if (addressstring == address) {
       Serial.println("\tData is addressed to this module");
       if (timestring.length() == 1) {
-        duration = (30000000 / bpm) * (timestring.charAt(1)-48);
+        duration = (30000000 / bpm) * (timestring.charAt(0)-48);
+        //duration = 2500000;
         Serial.print("Setting duration to "); Serial.println(duration);
       }
       if (pitchstring.length() == 1) {
         Serial.println("Seems to have a valid single-character pitch string");
-        char ch = pitchstring.charAt(1);
+        byte ch = pitchstring.charAt(0);
         if (ch >= 'C' and ch <= 'G') {
           playNote(lowTonedurations[ch - 'C']);
         }
@@ -75,12 +76,31 @@ void loop() {
   }
 }
 
-  void playNote(long timePeriod) {
-    Serial.print("Playing note with time period "); Serial.println(timePeriod);
-    cycles = duration / timePeriod;
-    cycles = cycles / 4;
-    timePeriod = timePeriod - 20;    //it takes 20 us to do the lines.
+void playNote(long timePeriod) {
+  Serial.print("Playing note with time period "); Serial.println(timePeriod);
+  cycles = duration / timePeriod;
+  cycles = cycles / 4;
+  cycles = 10;
+  Serial.print(cycles); Serial.println(" cycles");
+  timePeriod = timePeriod - 20;    //it takes 20 us to do the lines.
 
+  digitalWrite(step1, HIGH);
+  delayMicroseconds(timePeriod);
+  digitalWrite(step1, LOW);
+
+  digitalWrite(step2, HIGH);
+  delayMicroseconds(timePeriod);
+  digitalWrite(step2, LOW);
+
+  digitalWrite(step3, HIGH);
+  delayMicroseconds(timePeriod);
+  digitalWrite(step3, LOW);
+
+  digitalWrite(step4, HIGH);
+  delayMicroseconds(timePeriod);
+  digitalWrite(step4, LOW);
+
+  while (cyclesDone < cycles) {
     digitalWrite(step1, HIGH);
     delayMicroseconds(timePeriod);
     digitalWrite(step1, LOW);
@@ -96,25 +116,7 @@ void loop() {
     digitalWrite(step4, HIGH);
     delayMicroseconds(timePeriod);
     digitalWrite(step4, LOW);
-
-    while (cyclesDone < cycles) {
-      digitalWrite(step1, HIGH);
-      delayMicroseconds(timePeriod);
-      digitalWrite(step1, LOW);
-
-      digitalWrite(step2, HIGH);
-      delayMicroseconds(timePeriod);
-      digitalWrite(step2, LOW);
-
-      digitalWrite(step3, HIGH);
-      delayMicroseconds(timePeriod);
-      digitalWrite(step3, LOW);
-
-      digitalWrite(step4, HIGH);
-      delayMicroseconds(timePeriod);
-      digitalWrite(step4, LOW);
-
-      cyclesDone++;
-    }
-    cyclesDone = 0;
+    cyclesDone++;
   }
+  cyclesDone = 0;
+}
