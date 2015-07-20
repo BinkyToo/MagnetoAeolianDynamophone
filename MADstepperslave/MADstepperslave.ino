@@ -8,13 +8,13 @@ String addressstring = "";
 String pitchstring = "";
 String timestring = "";
 
-long bpm = 180;
+int bpm = 180;
 int pause = 0;
 long cycles = 0;
 long cyclesDone = 0;
 const int highTonedurations[] = {3822, 3405, 3034, 2703, 2551, 2273, 2025};
 const int lowTonedurations[] = {7644, 6810, 6060, 5406, 5102, 4546, 4050};
-int duration = 30000000 / bpm;  //calculates the duration in microseconds for each quaver
+long duration = 30000000 / bpm;  //calculates the duration in microseconds for each quaver
 boolean forwards = 0;
 
 void setup() {
@@ -36,8 +36,10 @@ void loop() {
     if (addressstring == address) {
       Serial.println("\tData is addressed to this module");
       if (timestring.length() == 1) {
-        duration = (30000000 / bpm) * (timestring.charAt(0)-48);
-        //duration = 2500000;
+        int foo = 1*timestring.charAt(0)-48;
+        Serial.println(foo);
+        Serial.println(bpm);
+        duration = (30000000 / bpm) * (foo);
         Serial.print("Setting duration to "); Serial.println(duration);
       }
       if (pitchstring.length() == 1) {
@@ -80,7 +82,6 @@ void playNote(long timePeriod) {
   Serial.print("Playing note with time period "); Serial.println(timePeriod);
   cycles = duration / timePeriod;
   cycles = cycles / 4;
-  cycles = 10;
   Serial.print(cycles); Serial.println(" cycles");
   timePeriod = timePeriod - 20;    //it takes 20 us to do the lines.
 
