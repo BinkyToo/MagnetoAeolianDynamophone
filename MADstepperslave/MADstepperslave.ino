@@ -19,21 +19,25 @@ boolean forwards = 0;
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("=== Magneto-Aeolian Dynamophone: Stepper-motor module ===");
   pinMode(step1, OUTPUT);
   pinMode(step2, OUTPUT);
   pinMode(step3, OUTPUT);
   pinMode(step4, OUTPUT);
-
+  Serial.println("Finished setup");
 }
 
 void loop() {
   if (Serial.available()) {
+    Serial.println("Found incoming data");
     addressstring = Serial.readStringUntil(':');
     pitchstring = Serial.readStringUntil(',');
     timestring = Serial.readStringUntil('\n');
     if (addressstring == address) {
+      Serial.println("\tData is addressed to this module");
       if (timestring.length() == 1) {
         duration = (30000000 / bpm) * timestring.charAt(1);
+        Serial.print("Setting duration to "); Serial.print(duration);
       }
       if (pitchstring.length() == 1) {
         char ch = pitchstring.charAt(1);
