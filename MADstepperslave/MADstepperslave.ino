@@ -40,6 +40,7 @@ void loop() {
         Serial.print("Setting duration to "); Serial.println(duration);
       }
       if (pitchstring.length() == 1) {
+        Serial.println("seems to have a valid single-character pitch string");
         char ch = pitchstring.charAt(1);
         if (ch >= 'C' and ch <= 'G') {
           playNote(lowTonedurations[ch - 'C']);
@@ -54,6 +55,7 @@ void loop() {
           playNote(highTonedurations[ch - 92]);
         }
         if (forwards == 0) {
+          Serial.println("Changing direction to forwards");
           step1 = 2;
           step2 = 3;
           step3 = 4;
@@ -61,6 +63,7 @@ void loop() {
           forwards = 1;
         }
         else if (forwards == 1) {
+          Serial.println("Changing direction to backwards");
           step1 = 5;
           step2 = 4;
           step3 = 3;
@@ -73,6 +76,7 @@ void loop() {
 }
 
   void playNote(long timePeriod) {
+    Serial.print("playing note with time period "); Serial.println(timePeriod);
     cycles = duration / timePeriod;
     cycles = cycles / 4;
     timePeriod = timePeriod - 20;    //it takes 20 us to do the lines.
