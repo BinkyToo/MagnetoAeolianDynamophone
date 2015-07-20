@@ -55,10 +55,7 @@ void loop() {
             delay(100);
           break;
         }
-        if (ch >= 'A' and ch <= 'G') {
-          Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
-        }
-        if (ch >= 'a' and ch <= 'g') {
+        if ((ch >= 'A' and ch <= 'G') || (ch >= 'a' and ch <= 'g')) {
           Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
         }
         if (ch >= '0' and ch <='9'){
