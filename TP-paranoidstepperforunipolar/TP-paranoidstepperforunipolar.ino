@@ -56,7 +56,6 @@ void loop()
   while (ch != 0)         //play the song whilst the array is still valid
   {
     duration = 30000000/bpm;//calculates the duration in microseconds for each quaver
-
     if(chordRepeats >= 1)
       {
         digitalWrite(chorde,HIGH);
