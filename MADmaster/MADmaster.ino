@@ -70,12 +70,12 @@ void loop() {
         }
         if (ch >= '0' and ch <='9'){
           Serial2.print(ch); Serial2.print("\n");
-
+          delay(165*(ch-48));
         }
-        else{
-          Serial2.print("1\n");
-        }
-        delay(200);
+        //else{
+        //  Serial2.print("1\n");
+        //}
+        delay(75);
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
