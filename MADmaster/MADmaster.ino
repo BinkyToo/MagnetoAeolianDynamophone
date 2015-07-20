@@ -104,7 +104,7 @@ void scansdcard(){
      error = NOFILES;
    }
    root.close();                          // Ditto for dirs
-   Serial.println("Done");
+   Serial.println("Done");                // This needed for clarification of jammed processing or poor no-files handling
    if (numberoffiles!=oldnumberoffiles){
      Serial.println("Number of files on SD card has changed!");
      Serial.print("\tWas "); Serial.print(oldnumberoffiles); Serial.print(", now "); Serial.println(numberoffiles);
@@ -130,7 +130,7 @@ void lcdsetup(){
 
 void tryuistatechange(){
   if (uistate != olduistate){
-    Serial1.print('\f');          // FIXME should this form-feed really be here?
+    Serial1.print('\f');          // If UI state has changed, definitely need to clear and redraw screen
     switch(uistate) {
     case SPLASH:
       drawsplash(vernum);
@@ -149,7 +149,7 @@ void tryuistatechange(){
   }
 }
 
-void handlecommand(){
+void handlecommand(){             // Deal with any incomming commands on serial link
   if (Serial.available()){
     char command = Serial.read();
     switch (command){
@@ -174,7 +174,7 @@ void handlecommand(){
           Serial.println("Card still present; playing");
           playedsofar = 0;
           uistate = PLAYING;
-          sequence.close();
+          sequence.close();     // Avoid having lots of open files
           sequence = SD.open(selectedfile);
         }
         else{
