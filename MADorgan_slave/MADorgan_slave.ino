@@ -16,6 +16,7 @@ String timestring = "";
 void setup() 
 {
   Serial.begin(9600);
+  Serial.setTimeout(5);   //if gibberish is sent then Serial.readStringUntil(':') only waits for 5ms before giving up
   for(int i=3; i<14; i++)  //set all the pins to output and test all the recorders! 
   {                        //I've always liked the idea of the recorders going doing this
     pinMode(i,OUTPUT);     //when the module is first switched on!
@@ -31,6 +32,8 @@ void loop()
   while(Serial.available()) 
   {
     addressstring = Serial.readStringUntil(':');
+    if (addressstring == "")
+       break;
     pitchstring = Serial.readStringUntil(',');
     timestring = Serial.readStringUntil('\n');
     
