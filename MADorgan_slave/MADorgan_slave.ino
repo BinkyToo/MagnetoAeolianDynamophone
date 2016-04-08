@@ -1,6 +1,8 @@
 
-String notes[12]  = {"A","Bb","B","C","C#","D","Eb","E","F","F#","G","G#"};  //mapping note to pin number
-int pinNumber[12] = { 2 ,   3, 4 ,  5,   6,  7,   8,  9, 10,  11, 12, 13};
+//String notes[12]  = {"A","Bb","B","C","C#","D","Eb","E","F","F#","G","G#"};  //mapping note to pin number
+//int pinNumber[12] = { 2 ,   3, 4 ,  5,   6,  7,   8,  9, 10,  11, 12, 13};
+String notes[12]  = {"C", "D", "E", "F", "G", "A", "B", "c", "d"};  //mapping note to pin number
+int pinNumber[12] = { 12 ,  3,   4 ,  5,   6,  7,   8,   9,  10};
 boolean states[12];      //each pin on or off
 boolean changeFlag = 0;  //the changeFlag is set to 1 whenever an output changes so setPins is only called when needed
 unsigned long timer;     //used to time things...
@@ -17,12 +19,12 @@ void setup()
 {
   Serial.begin(9600);
   Serial.setTimeout(5);   //if gibberish is sent then Serial.readStringUntil(':') only waits for 5ms before giving up
-  for(int i=3; i<14; i++)  //set all the pins to output and test all the recorders! 
+  for(int i=0; i<=8; i++)  //set all the pins to output and test all the recorders! 
   {                        //I've always liked the idea of the recorders going doing this
-    pinMode(i,OUTPUT);     //when the module is first switched on!
-    digitalWrite(i,HIGH);
-    delay(70);
-    digitalWrite(i,LOW);
+    pinMode(pinNumber[i],OUTPUT);     //when the module is first switched on!
+    digitalWrite(pinNumber[i],HIGH);
+    delay(500);
+    digitalWrite(pinNumber[i],LOW);
   }
 
 }

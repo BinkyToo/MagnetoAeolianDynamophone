@@ -56,10 +56,12 @@ void loop() {
           break;
         }
         if ((ch >= 'A' and ch <= 'G') || (ch >= 'a' and ch <= 'g')) {
-          Serial2.print("stepper:"); Serial2.print(ch); Serial2.print(",");
+          Serial2.print("orgn1:"); Serial2.print(ch); Serial2.print(",");
+          Serial.print("orgn1:"); Serial.print(ch); Serial.print(",");
         }
         if (ch >= '0' and ch <='9'){
-          Serial2.print(ch); Serial2.print("\n");
+          Serial2.print(ch); Serial2.print("00\n");
+          Serial.print(ch); Serial.print("00\n");
           delay(100*(ch-48));
         }
         delay(80);                // Wait for end device to process things? not sure. Ungly. FIXME
