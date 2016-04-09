@@ -48,23 +48,23 @@ void loop() {
         char ch = sequence.read();
         switch (ch){
           case '*':
-            Serial2.print("percussion:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
-            delay(100);
+            Serial2.print("drum:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
+            //delay(100);
           break;
           case '_':                             // Play nothing, but still take up a note's worth of time
             delay(100);
           break;
         }
         if ((ch >= 'A' and ch <= 'G') || (ch >= 'a' and ch <= 'g')) {
-          Serial2.print("orgn1:"); Serial2.print(ch); Serial2.print(",");
-          Serial.print("orgn1:"); Serial.print(ch); Serial.print(",");
+          Serial2.print("orgn0:"); Serial2.print(ch); Serial2.print(",");
+          Serial.print("orgn0:"); Serial.print(ch); Serial.print(",");
         }
         if (ch >= '0' and ch <='9'){
           Serial2.print(ch); Serial2.print("00\n");
           Serial.print(ch); Serial.print("00\n");
           delay(100*(ch-48));
         }
-        delay(80);                // Wait for end device to process things? not sure. Ungly. FIXME
+        //delay(80);                // Wait for end device to process things? not sure. Ungly. FIXME
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
