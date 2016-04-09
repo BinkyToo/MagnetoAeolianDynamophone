@@ -20,6 +20,8 @@ int uistate = SPLASH;
 int olduistate = SPLASH;
 int error = NONE;
 
+String title = "";
+
 
 void setup() {
   Serial.begin(9600);                 // Serial over USB for debug
@@ -51,8 +53,8 @@ void loop() {
             Serial2.print("drum:*,\n");   // This is a command packet using a (probably) unique structure. Needs better documentation.
             //delay(100);
           break;
-          case '_':                             // Play nothing, but still take up a note's worth of time
-            delay(100);
+          case 'x':                             // Play nothing, but still take up a note's worth of time
+            //delay(100);
           break;
         }
         if ((ch >= 'A' and ch <= 'G') || (ch >= 'a' and ch <= 'g')) {
