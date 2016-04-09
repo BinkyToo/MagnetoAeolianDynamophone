@@ -5,6 +5,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial2.print("orgn1:F, 80\n");
-  delay(140);
+  Serial2.print("orgn1:a,800\n");
+  delay(1600);
 }
