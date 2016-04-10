@@ -59,14 +59,14 @@ void loop() {
         }
         if ((ch >= 'A' and ch <= 'G') || (ch >= 'a' and ch <= 'g')) {
           Serial2.print("orgn0:"); Serial2.print(ch); Serial2.print(",");
-          Serial.print("orgn0:"); Serial.print(ch); Serial.print(",");
+          Serial.print("orgn0:");  Serial.print(ch);  Serial.print(",");
         }
         if (ch >= '0' and ch <='9'){
           Serial2.print(ch); Serial2.print("00\n");
-          Serial.print(ch); Serial.print("00\n");
-          delay(100*(ch-48));
+          Serial.print(ch);  Serial.print("00\n");
+          delay(160*(ch-48));
         }
-        //delay(80);                // Wait for end device to process things? not sure. Ungly. FIXME
+        //delay(100);                // Wait for end device to process things? not sure. Ungly. FIXME
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
       }
       else{
