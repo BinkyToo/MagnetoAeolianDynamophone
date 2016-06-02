@@ -3,7 +3,7 @@ const int numberOfNotes = 16;
 //String notes[12]  = {"A","Bb","B","C","C#","D","Eb","E","F","F#","G","G#"};  //mapping note to pin number
 //int pinNumber[12] = { 2 ,   3, 4 ,  5,   6,  7,   8,  9, 10,  11, 12, 13};
 String notes[numberOfNotes]  = {"C", "D", "E", "F", "G", "A", "B", "c", "d", "e", "f", "g", "a", "b"};  //mapping note to pin number
-int pinNumber[numberOfNotes] = { 12 , 3,   4 ,  5,   6,   7,   8,   12,  3,   4,   5,   6,   7,   8};
+int pinNumber[numberOfNotes] = { 3,   4 ,  5,   6,   7,   8,   9,   3,   4,   5,   6,   7,   8,   9 };
 boolean states[numberOfNotes];      //each pin on or off
 boolean changeFlag = 0;             //the changeFlag is set to 1 whenever an output changes so setPins is only called when needed
 unsigned long timer;                //used to time things...

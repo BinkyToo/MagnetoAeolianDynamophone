@@ -1,29 +1,31 @@
 void drawnowplaying(){                        // Draws the static parts of a now-playing screen
+  lcdclear();
   Serial.println("Drawing now playing screen");
-  Serial1.print("\f    Now Playing:    ");
-  movelcdcursortoline(1);
-  Serial1.print("    ");
-  Serial1.print(selectedfile);
+  OLED.print("    Now Playing:    ");
+  movelcdcursortoline(2);
+  movelcdcursortochar(4);
+  OLED.print(selectedfile);
 }
 
 void drawfiles(){
   Serial.println("Drawing file list");
   if (numberoffiles > 0){
-    Serial1.write(0x0C);                        // Clear display
-    for (int line = 0; line < 4; line++){
+    lcdclear();
+    for (int line = 1; line <= 4; line++){
       movelcdcursortoline(line);
-      if ((line+scrolloffset)==selectedfilenum){
-        Serial1.print("> ");
+      if ((-1+line+scrolloffset)==selectedfilenum){
+        OLED.print("> ");
       }
       else{
-        Serial1.print("  ");
+        OLED.print("  ");
       }
-      Serial1.println(fileindex[line+scrolloffset]);
+      OLED.print(fileindex[-1+line+scrolloffset]);
     }
-    movelcdcursortochar(77);
-    Serial1.print(selectedfilenum+1);
-    Serial1.print('/');
-    Serial1.print(numberoffiles);
+    movelcdcursortoline(4);
+    movelcdcursortochar(15);
+    OLED.print(String(selectedfilenum+1));
+    OLED.print("/");
+    OLED.print(String(numberoffiles));
   }
   else{
     error = NOFILES;
@@ -41,38 +43,43 @@ void drawprogressbar(float progress){
   for (int i=(progress*20); i<20; i++) {
     //output += " ";
   }
-  Serial1.write(0x02);
-  Serial1.write(61);
-  Serial1.print(output);
+  //Serial1.write(0x02);
+  //Serial1.write(61);
+  movelcdcursortoline(4);
+  OLED.print(output);
 }
 
 void drawsplash(int vernum){      // Compose device splash screen
   Serial.println("Drawing splash screen");
-  String output = "\f";             // Form feed
-  output += "                    ";
-  output += "  Magneto-Aeolian   ";
+  String output = "";
+  movelcdcursortoline(2);
+  OLED.print("  Magneto-Aeolian   ");
+  movelcdcursortoline(3);
   output += "  Dynamophone v";
   output += vernum;
-  Serial1.print(output);
+  OLED.print(output);
 }
 
 
 
 void drawerror(){
   Serial.println("Drawing error message");
-  Serial1.write(0x0c);              // Clear display
+  //Serial1.write(0x0c);              // Clear display
   switch(error){
     case NOFILES:
-      movelcdcursortochar(23);
-      Serial1.print("No files found");
-      movelcdcursortochar(40);
-      Serial1.print("Please check SD card");
+      movelcdcursortoline(2);
+      movelcdcursortochar(3);
+      OLED.print("No files found");
+      movelcdcursortoline(3);
+      OLED.print("Please check SD card");
       Serial.println("\tNo files?");
     break;
     default:
-      movelcdcursortochar(27);
+      movelcdcursortoline(2);
+      movelcdcursortochar(7);
       Serial1.print("Whoops");
-      movelcdcursortochar(41);
+      movelcdcursortoline(3);
+      movelcdcursortochar(1);
       Serial1.print("unclassified error");
       Serial.print("\t???");
   }

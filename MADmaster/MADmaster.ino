@@ -1,7 +1,8 @@
 #include <SPI.h>
 #include <SD.h>
+#include <AXE133Y.h>
 
-const int vernum = 0;
+const int vernum = 1;
 
 String dummy[20] = {};
 String fileindex[10] = {};
@@ -22,12 +23,15 @@ int error = NONE;
 
 String title = "";
 
+AXE133Y OLED = AXE133Y(6);
+
+
 
 void setup() {
+  lcdclear();                         // Includes setup of serial to LCD
   Serial.begin(9600);                 // Serial over USB for debug
   Serial2.begin(9600);                // Serial to  slave arduino(s)
   
-  lcdsetup();                         // Includes setup of serial to LCD
   drawsplash(vernum);
   uistate = FILES;                    // Should later draw the list of files to browse
   scansdcard();  
@@ -38,6 +42,7 @@ void setup() {
 
 void loop() {
   handlecommand();                    // Check if there is a command from the default serial connection, and process it
+  
   switch(uistate) {                   // These are displayed material which changes spontaneously (e.g. by time)
     case SPLASH:
     break;
@@ -64,7 +69,7 @@ void loop() {
         if (ch >= '0' and ch <='9'){
           Serial2.print(ch); Serial2.print("00\n");
           Serial.print(ch);  Serial.print("00\n");
-          delay(160*(ch-48));
+          delay(150*(ch-48));
         }
         //delay(100);                // Wait for end device to process things? not sure. Ungly. FIXME
         progress = ((float)playedsofar/(playedsofar+sequence.available()));   // Progress through track from 0 to 1
