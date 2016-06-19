@@ -1,0 +1,6 @@
+g2g1 g1a1b1   | d2d1 d3     | c1d1c1 c2a1    | c3 *a3
+g2g1 g1a1b1   | d2d1 d3     | c1d1c1 c2a1    | g3 *f3
+f2f1 e1d1c1   | d2d1 c3     | f2f1 e1d1c1    | d1e1d1 c3
+g2g1 g1a1b1   | d2d1 d3     | c1d1c1 c2a1    | g3 *f2f1
+c1c1c1 c1b1c1 | d3* g2g1    | d1d1d1 d1c1d1  | e3* g2e1
+e1d1e1 f2e1   | d1c1d1 e2c1 | f3 e1          | d1c1b1 c3*
